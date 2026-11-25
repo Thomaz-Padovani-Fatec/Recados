@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import RecadoForm from '../components/RecadoForm';
 import RecadoItem from '../components/RecadoItem';
+import BirthdayVillagers from '../components/BirthdayVillagers';
 
 function Recados() {
   const [recados, setRecados]       = useState([]);
@@ -76,31 +77,37 @@ function Recados() {
   if (carregando) return <p>Carregando...</p>;
 
   return (
-    <div style={{ maxWidth: 600, margin: '2rem auto', padding: '0 1rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <h1 style={{ margin: 0 }}>Meus Recados</h1>
-        <button onClick={logout}>Sair</button>
+    <>
+      <aside style={{ position: 'absolute', top: '2rem', right: '2rem', width: 360 }}>
+        <BirthdayVillagers />
+      </aside>
+
+      <div style={{ maxWidth: 600, margin: '2rem auto', padding: '0 1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+          <h1 style={{ margin: 0 }}>Meus Recados</h1>
+          <button onClick={logout}>Sair</button>
+        </div>
+
+        {erro && <p style={{ color: 'red' }}>{erro}</p>}
+
+        <RecadoForm onCriar={handleCriar} />
+
+        {recados.length === 0 ? (
+          <p style={{ color: '#888' }}>Nenhum recado ainda.</p>
+        ) : (
+          <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {recados.map(r => (
+              <RecadoItem
+                key={r.id}
+                recado={r}
+                onEditar={handleEditar}
+                onExcluir={handleExcluir}
+              />
+            ))}
+          </ul>
+        )}
       </div>
-
-      {erro && <p style={{ color: 'red' }}>{erro}</p>}
-
-      <RecadoForm onCriar={handleCriar} />
-
-      {recados.length === 0 ? (
-        <p style={{ color: '#888' }}>Nenhum recado ainda.</p>
-      ) : (
-        <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          {recados.map(r => (
-            <RecadoItem
-              key={r.id}
-              recado={r}
-              onEditar={handleEditar}
-              onExcluir={handleExcluir}
-            />
-          ))}
-        </ul>
-      )}
-    </div>
+    </>
   );
 }
 

@@ -1,0 +1,38 @@
+.villager-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.villager-card {
+  width: 140px;
+  border: 1px solid #e2dcc8;
+  border-radius: 12px;
+  background: #fffce9;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.villager-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.villager-card a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  color: #4a3f2a;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.villager-card img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+}
